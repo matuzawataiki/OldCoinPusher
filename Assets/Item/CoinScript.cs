@@ -22,10 +22,8 @@ public class CoinScript : ItemScript
             if (Time.frameCount % 240 == 0)
             {
 
-                Vector3 pos = new Vector3(Random.Range(-10.0f, 10.0f), 15.0f, Random.Range(-10.0f, 10.0f));
+                Vector3 pos = new Vector3(Random.Range(-5.0f, 5.0f), 15.0f, Random.Range(-5.0f, 5.0f));
                 GameObject coinObj = Instantiate(coinPref, pos, Quaternion.identity);
-                //Rigidbody coinRid = coinObj.GetComponent<Rigidbody>();
-                //coinRid.AddForce(new Vector3(0, -5, 0), ForceMode.Impulse);
             }
         }
     }
