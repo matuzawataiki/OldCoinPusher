@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &312096352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 312096354}
+  - component: {fileID: 312096353}
+  m_Layer: 0
+  m_Name: TornadoEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &312096353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312096352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe5db166d7eddf4dbb0bdfe46d0e6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tornadoEffect: {fileID: 7966731087305637596, guid: 8262b1abf5d65f1448c229f02d2a5241, type: 3}
+--- !u!4 &312096354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312096352}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +262,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &961092942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961092944}
+  - component: {fileID: 961092943}
+  m_Layer: 0
+  m_Name: FreezeEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &961092943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961092942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cddba6ba9dd233445bbeb8fc1b2c5235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freezeEffect: {fileID: 8400424712307853490, guid: da3125d41b7d38248967fcd80ae94a7e, type: 3}
+--- !u!4 &961092944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961092942}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ddb45bfd6980e44f94ecda9a0790a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinObject: {fileID: 1933201999168168980, guid: ba18a47d7a9ac6e4c82c70efc9872763, type: 3}
+  coinObject: {fileID: 8847276171231981568, guid: ad50fdf279b58404f94a4914edcc5f6d, type: 3}
 --- !u!1 &1128350400
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1352602308e653c4d9814d909d576a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPref: {fileID: 1933201999168168980, guid: ba18a47d7a9ac6e4c82c70efc9872763, type: 3}
+  coinPref: {fileID: 8847276171231981568, guid: ad50fdf279b58404f94a4914edcc5f6d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -588,3 +678,5 @@ SceneRoots:
   - {fileID: 1042997624}
   - {fileID: 1406170643}
   - {fileID: 1128350404}
+  - {fileID: 312096354}
+  - {fileID: 961092944}
