@@ -6,22 +6,41 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 
 public class CounterTextScript : MonoBehaviour
 {
+    [SerializeField] EnCounterType counterType;
+    [SerializeField] GameObject SaveDataObject;
+    SaveData m_saveData;
     TextMeshProUGUI m_text;
-    int m_counter = 0;
+    public enum EnCounterType
+    {
+        enCoin,
+        enJackpot,
+        enItem
+    }
     // Start is called before the first frame update
     void Start()
     {
         m_text = GetComponent<TextMeshProUGUI>();
+        m_saveData = SaveDataObject.GetComponent<SaveData>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_text.text = m_counter.ToString();
-    }
+        float counter = 0.0f;
+        switch (counterType)
+        {
+            case EnCounterType.enCoin:
+                counter = m_saveData.GetCoin();
+                break;
 
-    public void SetCoinCount(int counter)
-    {
-        m_counter = counter;
+            case EnCounterType.enJackpot:
+                counter = m_saveData.GetJackpot();
+                break;
+
+            case EnCounterType.enItem:
+                counter = m_saveData.GetItem();
+                break;
+        }
+        m_text.text = counter.ToString();
     }
 }
