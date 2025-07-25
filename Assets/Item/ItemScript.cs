@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//�A�C�e���̊��N���X
-public class ItemScript : MonoBehaviour
+//アイテムの基底クラス
+public class ItemScript : ItemManagerScript
 {
-    // �A�C�e���̍��W��ݒ肷��
+    [SerializeField] int Point;//景品のポイント。
+
+    //座標の設定
     public void SetPosition(Vector3 pos)
     {
         transform.position = pos;
     }
 
-    // �A�C�e���̉�]��ݒ肷��
+    //回転の設定。
     public void SetRotation(Quaternion rot)
     {
         transform.rotation = rot;
@@ -50,4 +52,9 @@ public class ItemScript : MonoBehaviour
         return power;
     }
 
+    public bool SetActive(bool isActive)
+    {
+        gameObject.SetActive(isActive);
+        return isActive;
+    }
 }

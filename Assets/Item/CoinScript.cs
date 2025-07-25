@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class CoinScript : ItemScript
 {
-    [SerializeField] GameObject coinPref; 
+    [SerializeField] GameObject coinPref;
+    [SerializeField] GameObject coinTowerPref;
     bool isGameEnd = false; 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +23,13 @@ public class CoinScript : ItemScript
             if (Time.frameCount % 240 == 0)
             {
 
-                Vector3 pos = new Vector3(Random.Range(-5.0f, 5.0f), 15.0f, Random.Range(-5.0f, 5.0f));
+                Vector3 pos = new Vector3(Random.Range(-10.0f, 10.0f), 15.0f, Random.Range(-10.0f, 10.0f));
                 GameObject coinObj = Instantiate(coinPref, pos, Quaternion.identity);
+            }
+            if (Time.frameCount % 600 == 0)
+            {
+                Vector3 pos = new Vector3(Random.Range(-10.0f, 10.0f), 15.0f, Random.Range(-10.0f, 10.0f));
+                GameObject coinTowerObj = Instantiate(coinTowerPref, pos, Quaternion.identity);
             }
         }
     }
