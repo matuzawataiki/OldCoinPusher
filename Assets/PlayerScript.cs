@@ -10,8 +10,13 @@ public class PlayerScript : MonoBehaviour
 {
     //移動用の変数一覧
     //プレイヤーの移動速度
-    float moveSpeed = 5.0f;
+    float moveSpeed = 10.0f;
 
+    //プレイヤーの現在のX軸の位置を格納する変数
+    private float currentPositionX = 0.0f;
+
+    //プレイヤーの移動制限距離
+    public float moveLimit = 15.0f;
 
     //回転用の変数一覧
     //プレイヤーの回転速度
@@ -23,25 +28,8 @@ public class PlayerScript : MonoBehaviour
     //プレイヤーの現在のY軸の角度を格納する変数
     private float currentRotationY = 0.0f;
 
-
-    //コイン発射用の変数一覧
-    //コインオブジェクトを格納する変数
-    public GameObject coinObject;
-
-    //コインの発射速度
-    float coinShotSpeed = 10000.0f;
-
-    //コインを発射を制限するフラグ
-    bool shotCoinLimitFlag = false;
-
-    //自動でコインを発射するフラグ
-    bool autoShotCoinFlag = false;
-
-    //コインを発射できる間隔（秒）
-    float shotCoinInterval = 0.3f;
-
-    //コインを発射できる間隔のタイマー
-    float shotCoinTimer = 0.0f;
+    //プレイヤーの回転制限角度
+    public float rotationLimit = 30.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +50,19 @@ public class PlayerScript : MonoBehaviour
         {
             transform.Translate(moveSpeed * Time.deltaTime, 0.0f, 0.0f, Space.World);
         }
+
+        MovePositionXLimit();//プレイヤーのX軸の移動を制限する処理
+    }
+
+    //プレイヤーのX軸の移動を制限する処理
+    void MovePositionXLimit()
+    {
+        //プレイヤーの現在のX軸の位置を取得
+        currentPositionX = transform.position.x;
+
+        //X軸の移動を制限
+        currentPositionX = Mathf.Clamp(currentPositionX, -moveLimit, moveLimit);
+        transform.position = new Vector3(currentPositionX, transform.position.y, transform.position.z);
     }
 
     //プレイヤーの回転処理
@@ -108,7 +109,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //X軸の回転を制限
-        currentRotationX = Mathf.Clamp(currentRotationX, -30.0f, 30.0f);
+        currentRotationX = Mathf.Clamp(currentRotationX, -rotationLimit, rotationLimit);
         transform.localEulerAngles = new Vector3(currentRotationX, transform.localEulerAngles.y, 0.0f);
     }
 
@@ -124,73 +125,8 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Y軸の回転を制限
-        currentRotationY = Mathf.Clamp(currentRotationY, -30.0f, 30.0f);
+        currentRotationY = Mathf.Clamp(currentRotationY, -rotationLimit, rotationLimit);
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, currentRotationY, 0.0f);
-    }
-
-    //コインを発射する処理
-    void ShotCoin()
-    {
-        //手動でコインを発射しているとき
-        if (!autoShotCoinFlag)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
-            {
-                //自動でコインを発射するように切り替える
-                autoShotCoinFlag = true;
-            }
-        }
-        //自動でコインを発射しているとき
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
-            {
-                //手動でコインを発射するように切り替える
-                autoShotCoinFlag = false;
-            }
-        }
-
-        //コインの発射を制限されていない場合は、コインを発射できる
-        if (!shotCoinLimitFlag)
-        {
-            if (Input.GetKey(KeyCode.Space) || autoShotCoinFlag)
-            {
-                //コインオブジェクトを生成する処理
-                CreateCoinObject();
-
-                //コインの発射を制限する
-                shotCoinLimitFlag = true;
-            }
-        }
-        //コインの発射を制限されている場合は、コインの発射を制限する
-        else
-        {
-            //コインの発射を制限する時間の更新
-            shotCoinTimer += Time.deltaTime;
-
-            //コインの発射を制限する時間が経過した場合、コインの発射を制限を解除する
-            if (shotCoinTimer >= shotCoinInterval)
-            {
-                shotCoinLimitFlag = false;
-                shotCoinTimer = 0.0f;
-            }
-        }
-    }
-
-    //コインオブジェクトを生成する処理
-    void CreateCoinObject()
-    {
-        //コインの発射位置をプレイヤーの前方に設定
-        Vector3 playerPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.5f);
-
-        //コインオブジェクトを生成し、プレイヤーの前方に発射する
-        GameObject coin = Instantiate(coinObject, playerPos, Quaternion.identity);
-
-        //コインのRigidbodyコンポーネントの取得
-        Rigidbody coinRigidbody = coin.GetComponent<Rigidbody>();
-
-        //コインのRigidbodyに力を加えて、コインを前方に発射する
-        coinRigidbody.AddForce(transform.forward * coinShotSpeed);
     }
 
     // Update is called once per frame
@@ -199,7 +135,5 @@ public class PlayerScript : MonoBehaviour
         Move();//プレイヤーの移動処理
 
         Rotation();//プレイヤーの回転処理
-
-        ShotCoin();//コインを発射する処理
     }
 }
