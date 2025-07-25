@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject coinObject;
 
     //コインの発射速度
-    float coinShotSpeed = 500.0f;
+    float coinShotSpeed = 10000.0f;
 
     //コインを発射を制限するフラグ
     bool shotCoinLimitFlag = false;
