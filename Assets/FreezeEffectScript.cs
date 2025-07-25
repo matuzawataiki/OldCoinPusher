@@ -21,10 +21,25 @@ public class FreezeEffectScript : MonoBehaviour
     //フリーズを生成しているかどうかを管理するフラグ
     bool isFreezeActive = false;
 
+    //フリーズを生成するかどうかを管理するフラグ
+    bool isFreezeSpawn = false;
+
     // Start is called before the first frame update
     void Start()
     {
         freezeEffectData = freezeEffect;
+    }
+
+    //フリーズ生成している？
+    public bool IsActive()
+    {
+        return isFreezeActive;
+    }
+
+    //フリーズの生成
+    public void Spawn()
+    {
+        isFreezeSpawn = true;
     }
 
     // Update is called once per frame
@@ -53,14 +68,20 @@ public class FreezeEffectScript : MonoBehaviour
         }
         else
         {
-            //デバッグ用のフリーズエフェクトの生成
-            if (Input.GetKeyDown(KeyCode.RightShift))
+            //フリーズ生成
+            if (isFreezeSpawn)
             {
+                Vector3 freezeEffectPos = transform.position;
+                freezeEffectPos.z += 2.5f;
+
                 //フリーズエフェクトを生成
-                freezeEffect = Instantiate(freezeEffect, freezeEffect.transform.position, freezeEffect.transform.rotation);
+                freezeEffect = Instantiate(freezeEffect, freezeEffectPos, freezeEffect.transform.rotation);
 
                 //フリーズの状態をアクティブにする
-                isFreezeActive = true; 
+                isFreezeActive = true;
+
+                //フリーズ生成できた
+                isFreezeSpawn = false;
             }
         }
     }

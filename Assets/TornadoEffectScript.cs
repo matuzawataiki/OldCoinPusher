@@ -12,6 +12,9 @@ public class TornadoEffectScript : MonoBehaviour
     //トルネードのエフェクトのデータを格納する変数
     private GameObject tornadoEffectData;
 
+    //トルネードの生成時のX軸の位置の制限
+    private float tornadoPositionXLimit = 25.0f;
+
     //トルネードの状態を管理する列挙型
     enum TornadoState
     {
@@ -41,10 +44,25 @@ public class TornadoEffectScript : MonoBehaviour
     //トルネードを生成しているかどうかを管理するフラグ
     bool isTornadoActive = false;
 
+    //トルネードを生成するかどうかを管理するフラグ
+    bool isTornadoSpawn = false;
+
     // Start is called before the first frame update
     void Start()
     {
         tornadoEffectData = tornadoEffect;
+    }
+
+    //トルネードを生成している？
+    public bool IsActive()
+    {
+        return isTornadoActive;
+    }
+
+    //トルネードの生成
+    public void Spawn()
+    {
+        isTornadoSpawn = true;
     }
 
     //トルネードの移動処理
@@ -53,12 +71,12 @@ public class TornadoEffectScript : MonoBehaviour
         if (tornadoMoveDirectionState == TornadoMoveDirectionState.Left)
         {
             //トルネードを左に移動させる
-            tornadoEffect.transform.Translate(Vector3.left * 0.5f * Time.deltaTime, Space.World);
+            tornadoEffect.transform.Translate(Vector3.left * 1.5f * Time.deltaTime, Space.World);
         }
         else if (tornadoMoveDirectionState == TornadoMoveDirectionState.Right)
         {
             //トルネードを右に移動させる
-            tornadoEffect.transform.Translate(Vector3.right * 0.5f * Time.deltaTime, Space.World);
+            tornadoEffect.transform.Translate(Vector3.right * 1.5f * Time.deltaTime, Space.World);
         }
     }
 
@@ -96,29 +114,51 @@ public class TornadoEffectScript : MonoBehaviour
         // トルネードがアクティブでない場合の処理
         else
         {
-            //デバッグ用のトルネード生成
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            //トルネード生成
+            if (isTornadoSpawn)
             {
-                //トルネードのエフェクトを生成する
-                tornadoEffect = Instantiate(tornadoEffect, tornadoEffect.transform.position, Quaternion.identity);
+                Vector3 tornadoEffectPos = tornadoEffect.transform.position;
+                //トルネードの生成位置(X軸)を制限内でランダムに設定する
+                tornadoEffectPos.x = Random.Range(-tornadoPositionXLimit, tornadoPositionXLimit + 1.0f);
+                float tornadoEffectPosX = tornadoEffectPos.x;
+                tornadoEffectPos.z -= 6.5f;
 
-                //トルネードのエフェクトのスケールを調整する
-                Vector3 tornadoEffectScale = tornadoEffect.transform.localScale;
-                tornadoEffectScale *= 1.5f;
-                tornadoEffect.transform.localScale = tornadoEffectScale;
+                //トルネードのエフェクトを生成する
+                tornadoEffect = Instantiate(tornadoEffect, tornadoEffectPos, tornadoEffect.transform.rotation);
+
+                Vector3 tornadoEffectScal = tornadoEffect.transform.localScale;
+                tornadoEffectScal *= 1.5f;
+                tornadoEffect.transform.localScale = tornadoEffectScal;
 
                 //トルネードの状態をランダムに設定する
                 tornadoState = (TornadoState)Random.Range(0, 2);
 
+                //トルネードの状態をアクティブにする
+                isTornadoActive = true;
+
+                //トルネード生成できた
+                isTornadoSpawn = false;
+
                 //トルネードの状態が移動状態のとき
                 if (tornadoState == TornadoState.Move)
                 {
+                    //トルネードの位置が制限内に近い場合はランダムに設定しない
+                    if (tornadoEffectPosX > 20.0f)
+                    {
+                        //トルネードの移動状態を左に設定する
+                        tornadoMoveDirectionState = TornadoMoveDirectionState.Left;
+                        return;
+                    }
+                    else if (tornadoEffectPosX < -20.0f)
+                    {
+                        //トルネードの移動状態を右に設定する
+                        tornadoMoveDirectionState = TornadoMoveDirectionState.Right;
+                        return;
+                    }
+
                     //トルネードの移動状態をランダムに設定する
                     tornadoMoveDirectionState = (TornadoMoveDirectionState)Random.Range(0, 2);
                 }
-
-                //トルネードの状態をアクティブにする
-                isTornadoActive = true;
             }
         }
     }
