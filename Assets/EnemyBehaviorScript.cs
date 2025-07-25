@@ -27,30 +27,9 @@ public class EnemyBehaviorScript : MonoBehaviour
         if(other.name == "Tornado(Clone)")
         {
             Rigidbody rb = transform.gameObject.GetComponent<Rigidbody>();
-            rb.AddForce(Vector3.up * 5.0f, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * 20.0f, ForceMode.Impulse);
         }
         else if(other.transform.parent.name == "Freeze(Clone)")
-        {
-            CoinFreeze();//コインを凍結する処理
-        }
-    }
-
-    //コイン凍結マネージャー
-    void CoinFreezeManager()
-    {
-        //コインが凍結状態ならば、凍結時間をカウントアップする
-        if (isCoinFreeze)
-        {
-            coinFreezeTime += Time.deltaTime;
-            //コインの凍結時間が解凍時間を超えたら解凍する
-            if (coinFreezeTime >= coinUnfreezeTime)
-            {
-                CoinUnFreeze();//コインを解凍する処理
-                coinFreezeTime = 0.0f;
-            }
-        }
-        //コインが凍結状態でなければ、コインを凍結する
-        else
         {
             CoinFreeze();//コインを凍結する処理
         }
