@@ -109,7 +109,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         //Xé≤ÇÃâÒì]Çêßå¿
-        currentRotationX = Mathf.Clamp(currentRotationX, -rotationLimit, rotationLimit);
+        currentRotationX = Mathf.Clamp(currentRotationX, -rotationLimit, 0.0f);
         transform.localEulerAngles = new Vector3(currentRotationX, transform.localEulerAngles.y, 0.0f);
     }
 

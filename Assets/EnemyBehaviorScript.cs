@@ -26,7 +26,7 @@ public class EnemyBehaviorScript : MonoBehaviour
         if(other.name == "Tornado(Clone)")
         {
             Rigidbody rb = transform.gameObject.GetComponent<Rigidbody>();
-            rb.AddForce(Vector3.up * 20.0f, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * 50.0f, ForceMode.Impulse);
         }
         else if(other.transform.parent.name == "Freeze(Clone)")
         {
@@ -76,8 +76,11 @@ public class EnemyBehaviorScript : MonoBehaviour
         else if (collision.gameObject.tag == "PlayerGround")
         {
             GameObject saveDataObject = GameObject.FindGameObjectWithTag("SaveData");
+            GameObject enemyManager = GameObject.Find("EnemyManager");
             SaveData saveDataScript = saveDataObject.GetComponent<SaveData>();
+            EnemyManagerScript enemyManagerScript = enemyManager.GetComponent<EnemyManagerScript>();
             saveDataScript.AddCoin(1);
+            enemyManagerScript.AddEnemySpawnCoinCount(1);
             Destroy(gameObject);
         }
     }

@@ -101,7 +101,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -134,3 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d07998558a06534f9dfaf2464b3ed0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OgreDropItem: {fileID: 5329611835651945123, guid: a71d3a3bc8f05184cae38148b52df21e, type: 3}
+  ogreHP: 100
+  ogreDamage: 10
