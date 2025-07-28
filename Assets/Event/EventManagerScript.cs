@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 enum EventType
@@ -13,45 +14,76 @@ enum EventType
 //イベント出現のマネージャースクリプト。
 public class EventManagerScript : MonoBehaviour
 {
-    const int EnemyEncounterCoin = 5; //敵が出現するのに必要なコイン数
-    const int SkellEncounterCoin = 7; //スケルトンが出現するのに必要なコイン数
-    const int OkeEncounterCoin = 10; //上段に桶が出現するのに必要なコイン数
+    const int EnemyEncounterCoin = 15; //敵が出現するのに必要なコイン数
+    const int SkellEncounterCoin = 40; //スケルトンが出現するのに必要なコイン数
+    const int OkeEncounterCoin = 60; //上段に桶が出現するのに必要なコイン数
     const int JackPotActiveteCoban = 5; //ジャックポットが出現するのに必要な小判束数
-    protected bool IsEnemyEncounter = false; //敵出現イベントがアクティブどうか
-    protected bool IsSkellEncounter = false; //スケルトン出現イベントがアクティブどうか
-    protected bool IsOkeEncounter = false; //上段に桶出現イベントがアクティブどうか
-    protected bool IsJackPotActive = false; //ジャックポットイベントがアクティブどうか
+    public bool IsEnemyEncounter = false; //敵出現イベントがアクティブどうか
+    public bool IsSkellEncounter = false; //スケルトン出現イベントがアクティブどうか
+    public bool IsOkeEncounter = false; //上段に桶出現イベントがアクティブどうか
+    public bool IsJackPotActive = false; //ジャックポットイベントがアクティブどうか
     int coinCount = 0; //コインの数をカウントする変数
     int cobanCount = 0; //小判の数をカウントする変数
+    private bool IsOpen = false; //上段が開いているかどうかのフラグ
     [SerializeField]GameObject[] NowEvent=new GameObject[4]; //現在起きているイベントを格納する変数
+    [SerializeField] GameObject SaveDataObject;
+    [SerializeField] GameObject StageObject; //ステージオブジェクトを格納する変数
+    SaveData SaveDataScript; //セーブデータスクリプトを格納する変数 
+    PusherManagerScript  StageScript; //ステージスクリプトを格納する変数
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SaveDataScript = SaveDataObject.GetComponent<SaveData>(); //セーブデータスクリプトを取得
+        StageScript = StageObject.GetComponent<PusherManagerScript>(); //ステージスクリプトを取得
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(cobanCount%JackPotActiveteCoban==0 && IsJackPotActive == false)
+        coinCount = SaveDataScript.GetCoin(); //コインの数を取得
+        cobanCount = SaveDataScript.GetCoban(); //小判の数を取得
+
+        OpenOrCloseUpperRow(); //上段の開閉を行う
+        if (cobanCount != 0)
         {
-            GameObject gameObject = Instantiate(NowEvent[(int)EventType.JackPotActive], transform.position, Quaternion.identity);
-            IsJackPotActive = true; //ジャックポットイベントがアクティブになる
+            if (cobanCount % JackPotActiveteCoban == 0 && IsJackPotActive == false)
+            {
+                GameObject gameObject = Instantiate(NowEvent[(int)EventType.JackPotActive], transform.position, Quaternion.identity);
+                IsJackPotActive = true; //ジャックポットイベントがアクティブになる
+            }
         }
-        if (coinCount % EnemyEncounterCoin ==0 && IsEnemyEncounter==false)
+        if (coinCount != 0)
         {
-            GameObject gameObject = Instantiate(NowEvent[(int)EventType.EnemyEncounter], transform.position, Quaternion.identity);
-            IsEnemyEncounter = true; //敵出現イベントがアクティブになる
+            if (coinCount % EnemyEncounterCoin == 0 && IsEnemyEncounter == false)
+            {
+                GameObject gameObject = Instantiate(NowEvent[(int)EventType.EnemyEncounter], transform.position, Quaternion.identity);
+                IsEnemyEncounter = true; //敵出現イベントがアクティブになる
+            }
+            if (coinCount % SkellEncounterCoin == 0 && IsSkellEncounter == false)
+            {
+                GameObject gameObject = Instantiate(NowEvent[(int)EventType.SkellEncounter], transform.position, Quaternion.identity);
+                IsSkellEncounter = true; //スケルトン出現イベントがアクティブになる
+            }
+            if (coinCount % OkeEncounterCoin == 0 && IsOkeEncounter == false)
+            {
+                GameObject gameObject = Instantiate(NowEvent[(int)EventType.OkeEncounter], transform.position, Quaternion.identity);
+                //IsOkeEncounter = true; //上段に桶出現イベントがアクティブになる。BuketScriptからfalseに戻せないため一旦コメントアウト。
+            }
         }
-        if (coinCount % SkellEncounterCoin == 0 && IsSkellEncounter==false)
+    }
+
+    private void OpenOrCloseUpperRow()
+    {
+        if ((IsEnemyEncounter == false && IsSkellEncounter == false && IsOkeEncounter == false)&&IsOpen==true)
         {
-            GameObject gameObject = Instantiate(NowEvent[(int)EventType.SkellEncounter], transform.position, Quaternion.identity);
-            IsSkellEncounter = true; //スケルトン出現イベントがアクティブになる
+            StageScript.Close();
+            IsOpen = false; //空いてない
         }
-        if (coinCount % OkeEncounterCoin==0 && IsOkeEncounter==false)
+        else if ((IsEnemyEncounter == true || IsSkellEncounter == true || IsOkeEncounter == true)&&IsOpen==false)
         {
-            GameObject gameObject = Instantiate(NowEvent[(int)EventType.OkeEncounter], transform.position, Quaternion.identity);
-            IsOkeEncounter = true; //上段に桶出現イベントがアクティブになる
+            StageScript.Open();
+            IsOpen = true; //空いてる
         }
     }
 }

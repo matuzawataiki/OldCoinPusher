@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3576423734239602026
+--- !u!1 &914449675404448088
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5677017245228842884}
-  - component: {fileID: -726726551119742593}
+  - component: {fileID: 5803502781029276802}
+  - component: {fileID: 9096880853516270782}
   m_Layer: 0
-  m_Name: DemonSubjugation
-  m_TagString: Untagged
+  m_Name: SaveData
+  m_TagString: SaveData
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5677017245228842884
+--- !u!4 &5803502781029276802
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3576423734239602026}
+  m_GameObject: {fileID: 914449675404448088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 14.315278, y: -10.179519, z: 4.5686245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-726726551119742593
+--- !u!114 &9096880853516270782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3576423734239602026}
+  m_GameObject: {fileID: 914449675404448088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fc7f98df1aa5b44087e3d741e882a41, type: 3}
+  m_Script: {fileID: 11500000, guid: cc46c5d3b99a6064e862a8538d12f3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DemonPurehaf: {fileID: 919132149155446097, guid: 38b748d1e57621f469300f3e96dea280, type: 3}
+  m_coin: 0
+  m_point: 0
+  m_jackpot: 0
+  m_item: 0
+  m_coban: 0
