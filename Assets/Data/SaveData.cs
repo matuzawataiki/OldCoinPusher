@@ -9,6 +9,7 @@ public class SaveData : MonoBehaviour
     [SerializeField] private float m_point = 0;
     [SerializeField] private float m_jackpot = 0;
     [SerializeField] private int m_item = 0;
+    [SerializeField] private int m_coban = 0; //小判の数を格納する変数。
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,9 @@ public class SaveData : MonoBehaviour
     public int GetItem() { return m_item; }
     public void AddItem(int item) {m_item += item; }
 
-
+    public void SetCoban(int coban) { m_coban = coban; } //小判の数を設定するメソッド
+    public int GetCoban() { return m_coban; } //小判の数を取得するメソッド
+    public void AddCoban(int coban) { m_coban += coban; } //小判の数を追加するメソッド
 
 
 
