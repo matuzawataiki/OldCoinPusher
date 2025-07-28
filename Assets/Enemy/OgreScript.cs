@@ -7,6 +7,12 @@ using UnityEngine;
 /// </summary>
 public class OgreScript : MonoBehaviour
 {
+    //敵用のマネージャーのスクリプト
+    private EnemyManagerScript enemyManagerScript;
+
+    //鬼を倒したらドロップするアイテム
+    public GameObject OgreDropItem;
+
     //トルネード用のスクリプト
     TornadoEffectScript tornadoEffectScript;
 
@@ -32,9 +38,19 @@ public class OgreScript : MonoBehaviour
     //鬼の動作の間隔時間
     float ogreActionInterval = 0.0f;
 
+    //鬼の体力
+    public int ogreHP = 100;
+
+    //鬼に対するダメージ
+    public int ogreDamage = 10;
+
     // Start is called before the first frame update
     void Start()
     {
+        //敵用のマネージャーのスクリプトを取得
+        GameObject enemyManager = GameObject.Find("EnemyManager");
+        enemyManagerScript = enemyManager.GetComponent<EnemyManagerScript>();
+
         //鬼の移動方向の状態をランダムに設定
         moveDirectionState = (OgreMoveDirectionState)Random.Range(0, 2);
 
@@ -70,7 +86,7 @@ public class OgreScript : MonoBehaviour
         }
     }
 
-    //鬼の動作
+    //鬼の動作処理
     void Action()
     {
         //トルネードを生成していないときに処理する
@@ -87,11 +103,49 @@ public class OgreScript : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "coin(Clone)")
+        {
+            ogreHP -= ogreDamage;
+
+            if (ogreHP <= 0)
+            {
+                if (tornadoEffectScript.IsActive())
+                {
+                    Destroy(tornadoEffectScript.GetTornadoEffect());
+                }
+                Destroy(gameObject);
+
+                //鬼を倒したらドロップアイテムを生成
+                Vector3 dropItemPosition = transform.position;
+                dropItemPosition.y += 1.0f; // ドロップアイテムの位置を少し上に設定
+                Instantiate(OgreDropItem, dropItemPosition, OgreDropItem.transform.rotation);
+
+                enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
+                enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if(enemyManagerScript.IsEnemyLifeTimiLimit())
+        {
+            if (tornadoEffectScript.IsActive())
+            {
+                Destroy(tornadoEffectScript.GetTornadoEffect());
+            }
+            Destroy(gameObject);
+
+            enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
+            enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
+            enemyManagerScript.ResetEnemyLifeTimeLimit();//敵の生存時間を超えたかどうかを管理するフラグをリセットする
+        }
+
         Move();//鬼の移動処理
 
-        Action();//鬼の動作
+        Action();//鬼の動作処理
     }
 }

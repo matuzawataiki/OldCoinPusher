@@ -59,6 +59,12 @@ public class TornadoEffectScript : MonoBehaviour
         return isTornadoActive;
     }
 
+    //トルネードのエフェクトの取得
+    public GameObject GetTornadoEffect()
+    {
+        return tornadoEffect;
+    }
+
     //トルネードの生成
     public void Spawn()
     {
@@ -125,10 +131,6 @@ public class TornadoEffectScript : MonoBehaviour
 
                 //トルネードのエフェクトを生成する
                 tornadoEffect = Instantiate(tornadoEffect, tornadoEffectPos, tornadoEffect.transform.rotation);
-
-                Vector3 tornadoEffectScal = tornadoEffect.transform.localScale;
-                tornadoEffectScal *= 1.5f;
-                tornadoEffect.transform.localScale = tornadoEffectScal;
 
                 //トルネードの状態をランダムに設定する
                 tornadoState = (TornadoState)Random.Range(0, 2);

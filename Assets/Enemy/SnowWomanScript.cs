@@ -7,6 +7,15 @@ using UnityEngine;
 /// </summary>
 public class SnowWomanScript : MonoBehaviour
 {
+    //敵用のマネージャーのスクリプト
+    private EnemyManagerScript enemyManagerScript;
+
+    //雪女を倒したらドロップするアイテム
+    public GameObject SnowWomanDropItem;
+
+    //ドロップするアイテムの数
+    public int dropItemNum = 5;
+
     //フリーズ用のスクリプト
     FreezeEffectScript freezeEffectScript;
 
@@ -53,11 +62,21 @@ public class SnowWomanScript : MonoBehaviour
     //雪女の動作の間隔時間
     float snowWomanActionInterval = 0.0f;
 
+    //雪女の体力
+    public int snowWomanHP = 100;
+
+    //雪女に対するダメージ
+    public int snowWomanDamage = 10;
+
     // Start is called before the first frame update
     void Start()
     {
+        //敵用のマネージャーのスクリプトを取得
+        GameObject enemyManager = GameObject.Find("EnemyManager");
+        enemyManagerScript = enemyManager.GetComponent<EnemyManagerScript>();
+
         //雪女の移動方向の状態をランダムに設定
-        moveDirectionState=(SnowWomanMoveDirectionState)Random.Range(0, 2);
+        moveDirectionState = (SnowWomanMoveDirectionState)Random.Range(0, 2);
 
         //フリーズ用のスクリプト取得
         freezeEffectScript = this.GetComponent<FreezeEffectScript>();
@@ -142,7 +161,7 @@ public class SnowWomanScript : MonoBehaviour
         );
     }
 
-    //鬼の動作
+    //鬼の動作処理
     void Action()
     {
         //トルネードを生成していないときに処理する
@@ -159,11 +178,50 @@ public class SnowWomanScript : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name=="coin(Clone)")
+        {
+            snowWomanHP -= snowWomanDamage;
+
+            if (snowWomanHP <= 0)
+            {
+                if (freezeEffectScript.IsActive())
+                {
+                    Destroy(freezeEffectScript.GetFreezeEffect());
+                }
+                Destroy(gameObject);
+
+                for (int i = 0; i < dropItemNum; i++)
+                {
+                    //雪女を倒したらドロップアイテムを生成
+                    Vector3 dropItemPosition = new Vector3(Random.Range(-23.0f, 23.0f), 15.0f, Random.Range(-4.0f, 1.0f));
+                    Instantiate(SnowWomanDropItem, dropItemPosition, Quaternion.identity);
+                }
+
+                enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
+                enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        if (enemyManagerScript.IsEnemyLifeTimiLimit())
+        {
+            if (freezeEffectScript.IsActive())
+            {
+                Destroy(freezeEffectScript.GetFreezeEffect());
+            }
+            Destroy(gameObject);
+
+            enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
+            enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
+            enemyManagerScript.ResetEnemyLifeTimeLimit();//敵の生存時間を超えたかどうかを管理するフラグをリセットする
+        }
+
         Move();//雪女の移動処理
 
-        Action();//雪女の動作
+        Action();//雪女の動作処理
     }
 }
