@@ -15,6 +15,12 @@ public class PusherManagerScript : MonoBehaviour
     GameObject[] m_eventStands = new GameObject[5];
     EventStandScript[] m_eventStandScripts = new EventStandScript[5];
 
+    bool m_isOpen = false;
+    bool m_isClose = false;
+
+    int m_countTime = 0;
+    int m_count = 0;
+
     Vector3[] PusherPosition = new Vector3[8]
     {
         new Vector3(22.4f,1.0f,20.0f),
@@ -59,6 +65,69 @@ public class PusherManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (m_isOpen)
+        {
+            OpenEventStage();
+        }
+
+        if (m_isClose)
+        {
+            CloseEventStage();
+        }
+
+        if (Input.GetKeyUp(KeyCode.K)) {
+            Open();
+        }
+        if (Input.GetKeyUp(KeyCode.J)) { 
+            Close();
+        }
+    }
+
+    public void Open()
+    {
+        m_isOpen = true;
+        m_count = 0;
+        m_countTime = 0;
+        Debug.Log("ŠJ‚­‚æ");
+    }
+    public void Close()
+    {
+        m_count = 0;
+        m_countTime = 0;
+        m_isClose = true;
+    }
+
+
+    private void OpenEventStage()
+    {
+        m_countTime++;
+
+        if(m_countTime >= 120)
+        {
+            m_countTime = 0;
+            m_eventStandScripts[m_count].Open();
+            m_count++;
+        }
+
+        if(m_count >= m_eventStands.Length)
+        {
+            m_isOpen = false;
+        }
+    }
+    private void CloseEventStage()
+    {
+        m_countTime++;
+
+        if (m_countTime >= 300)
+        {
+            m_countTime = 0;
+            m_eventStandScripts[m_count].Close();
+            m_count++;
+        }
+
+        if (m_count >= m_eventStands.Length)
+        {
+            m_isClose = false;
+        }
     }
 }
