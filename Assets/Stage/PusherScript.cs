@@ -11,12 +11,13 @@ public class PusherScript : MonoBehaviour
     Vector3 StartPosition = new Vector3(0.0f, 0.0f, 20.0f);
     Vector3 EndPosition = new Vector3(0.0f, 0.0f, 15.0f);
     [SerializeField] float m_moveSpeed = 0.001f;
+    Rigidbody rb;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = GetComponentInChildren<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -37,9 +38,11 @@ public class PusherScript : MonoBehaviour
         }
 
         float zLerp = Vector3.Lerp(StartPosition, EndPosition, t).z;
-        Vector3 position = transform.position;
-        position.z = zLerp;
-        transform.position = position;
+        rb.MovePosition(new Vector3(
+            transform.position.x,
+            transform.position.y,
+            zLerp
+        ));
 
         if(t > 1.0f)
         {

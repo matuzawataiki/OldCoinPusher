@@ -19,7 +19,6 @@ public class EnemyBehaviorScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     private void OnParticleCollision(GameObject other)
@@ -65,6 +64,21 @@ public class EnemyBehaviorScript : MonoBehaviour
                 CoinUnFreeze();//ÉRÉCÉìÇâìÄÇ∑ÇÈèàóù
                 coinFreezeTime = 0.0f;
             }
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "PlayerGround")
+        {
+            GameObject saveDataObject = GameObject.FindGameObjectWithTag("SaveData");
+            SaveData saveDataScript = saveDataObject.GetComponent<SaveData>();
+            saveDataScript.AddCoin(1);
+            Destroy(gameObject);
         }
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CoinScript : ItemScript
 {
-    [SerializeField] GameObject coinPref;
-    [SerializeField] GameObject coinTowerPref;
-    bool isGameEnd = false; 
+    [SerializeField] GameObject m_coinPref;
+    [SerializeField] GameObject m_coinTowerPref;
+    bool m_isGameEnd = false; 
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,7 @@ public class CoinScript : ItemScript
     // Update is called once per frame
     void Update()
     {
-        if (isGameEnd == false)
+        if (m_isGameEnd == false)
         {
             //coinObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -5, 0), ForceMode.Impulse);
             //if (Time.frameCount % 240 == 0)
@@ -29,9 +29,8 @@ public class CoinScript : ItemScript
             if (Time.frameCount % 600 == 0)
             {
                 Vector3 pos = new Vector3(Random.Range(-23.0f, 23.0f), 15.0f, Random.Range(-4.0f, 1.0f));
-                GameObject coinTowerObj = Instantiate(coinTowerPref, pos, Quaternion.identity);
+                GameObject coinTowerObj = Instantiate(m_coinTowerPref, pos, Quaternion.identity);
             }
         }
     }
-
 }
