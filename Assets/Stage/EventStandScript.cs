@@ -25,7 +25,6 @@ public class EventStandScript : MonoBehaviour
         {
             return;
         }
-        Debug.Log("ŠJ‚¢‚Ä‚é‚æ");
 
         float zLerp = Vector3.Lerp(StartPosition, EndPosition, t).z;
         Debug.Log(t);

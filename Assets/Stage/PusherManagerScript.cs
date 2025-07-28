@@ -88,7 +88,6 @@ public class PusherManagerScript : MonoBehaviour
         m_isOpen = true;
         m_count = 0;
         m_countTime = 0;
-        Debug.Log("ŠJ‚­‚æ");
     }
     public void Close()
     {
