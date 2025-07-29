@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
+using CI.QuickSave;
+using CI.QuickSave.Core.Storage;
+using static UnityEditor.Progress;
+
 
 public class SaveData : MonoBehaviour
 {
@@ -9,11 +13,22 @@ public class SaveData : MonoBehaviour
     [SerializeField] private float m_point = 0;
     [SerializeField] private float m_jackpot = 0;
     [SerializeField] private int m_item = 0;
-    [SerializeField] private int m_coban = 0; //¬”»‚Ì”‚ğŠi”[‚·‚é•Ï”B
+    //ï¿½Zï¿½[ï¿½uï¿½İ’ï¿½
+    QuickSaveSettings m_saveSettings;
+
+    [SerializeField] private int m_coban = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½B
     // Start is called before the first frame update
     void Start()
     {
-        
+        // QuickSaveSettingsï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬
+        m_saveSettings = new QuickSaveSettings();
+        // ï¿½Ãï¿½ï¿½ï¿½ï¿½Ì•ï¿½ï¿½@ 
+        m_saveSettings.SecurityMode = SecurityMode.Aes;
+        // Aesï¿½ÌˆÃï¿½ï¿½ï¿½ï¿½Lï¿½[
+        m_saveSettings.Password = "Password";
+        // ï¿½ï¿½ï¿½kï¿½Ì•ï¿½ï¿½@
+        m_saveSettings.CompressionMode = CompressionMode.Gzip;
+        LoadUserData();
     }
 
     // Update is called once per frame
@@ -21,6 +36,47 @@ public class SaveData : MonoBehaviour
     {
         
     }
+
+    /// <summary>
+    /// ï¿½fï¿½[ï¿½^ï¿½Zï¿½[ï¿½u
+    /// </summary>
+    public void SaveUserData()
+    {
+        Debug.Log("ï¿½Zï¿½[ï¿½uï¿½fï¿½[ï¿½^ï¿½Û‘ï¿½ï¿½ï¿½:" + Application.persistentDataPath);
+
+        // QuickSaveWriterï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬
+        QuickSaveWriter writer = QuickSaveWriter.Create("SaveData", m_saveSettings);
+
+        // ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        writer.Write("CoinNum", m_coin);
+        writer.Write("JackpotNum", m_jackpot);
+        writer.Write("ItemNum", m_item);
+        writer.Write("ItemPoint", m_point);
+
+        // ï¿½ÏXï¿½ğ”½‰f
+        writer.Commit();
+    }
+    /// <summary>
+    /// ï¿½Zï¿½[ï¿½uï¿½fï¿½[ï¿½^ï¿½Ç‚İï¿½ï¿½ï¿½
+    /// </summary>
+    public void LoadUserData()
+    {
+        //ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½
+        if (FileAccess.Exists("SaveData") == false)
+        {
+            return;
+        }
+
+        // QuickSaveReaderï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬
+        QuickSaveReader reader = QuickSaveReader.Create("SaveData", m_saveSettings);
+
+        // ï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+        m_coin = reader.Read<int>("CoinNum");
+        m_jackpot = reader.Read<int>("JackpotNum");
+        m_item = reader.Read<int>("ItemNum");
+        m_point = reader.Read<int>("ItemPoint");
+    }
+
 
     public void SetCoin(int coin){ m_coin = coin; }
     public int GetCoin() { return m_coin; }
@@ -38,9 +94,9 @@ public class SaveData : MonoBehaviour
     public int GetItem() { return m_item; }
     public void AddItem(int item) {m_item += item; }
 
-    public void SetCoban(int coban) { m_coban = coban; } //¬”»‚Ì”‚ğİ’è‚·‚éƒƒ\ƒbƒh
-    public int GetCoban() { return m_coban; } //¬”»‚Ì”‚ğæ“¾‚·‚éƒƒ\ƒbƒh
-    public void AddCoban(int coban) { m_coban += coban; } //¬”»‚Ì”‚ğ’Ç‰Á‚·‚éƒƒ\ƒbƒh
+    public void SetCoban(int coban) { m_coban = coban; } //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½İ’è‚·ï¿½éƒï¿½\ï¿½bï¿½h
+    public int GetCoban() { return m_coban; } //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
+    public void AddCoban(int coban) { m_coban += coban; } //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
 
 
 
