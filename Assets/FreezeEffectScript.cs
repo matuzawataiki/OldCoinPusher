@@ -30,6 +30,12 @@ public class FreezeEffectScript : MonoBehaviour
         freezeEffectData = freezeEffect;
     }
 
+    //フリーズのエフェクトの取得
+    public GameObject GetFreezeEffect()
+    {
+        return freezeEffect;
+    }
+
     //フリーズ生成している？
     public bool IsActive()
     {
@@ -72,7 +78,6 @@ public class FreezeEffectScript : MonoBehaviour
             if (isFreezeSpawn)
             {
                 Vector3 freezeEffectPos = transform.position;
-                freezeEffectPos.z += 2.5f;
 
                 //フリーズエフェクトを生成
                 freezeEffect = Instantiate(freezeEffect, freezeEffectPos, freezeEffect.transform.rotation);

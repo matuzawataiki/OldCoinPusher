@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 enum WhichJackPotItem
@@ -36,6 +37,7 @@ public class JackPotScript : MonoBehaviour
         } 
         else {
             NowJackPotSceneIsTriggerToSpace = 0; //ジャックポットの時間が終わったらスペースキーを押した回数をリセットする。
+            Destroy(gameObject);
         }
         
     }
