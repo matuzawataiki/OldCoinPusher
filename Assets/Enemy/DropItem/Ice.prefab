@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 3142393424232062785}
   - component: {fileID: 5783354216184141566}
   - component: {fileID: 6574296717075721418}
+  - component: {fileID: -5111273749930425783}
   m_Layer: 0
   m_Name: Ice
   m_TagString: Untagged
@@ -188,3 +189,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &-5111273749930425783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009169655886577235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d4af6f41bf05a4a984f417f7591025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

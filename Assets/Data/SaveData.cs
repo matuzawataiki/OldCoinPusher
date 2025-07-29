@@ -10,6 +10,7 @@ public class SaveData : MonoBehaviour
     [SerializeField] private float m_jackpot = 0;
     [SerializeField] private int m_item = 0;
     [SerializeField] private int m_coban = 0; //小判の数を格納する変数。
+    private bool m_isJackpot = false; //ジャックポットが発生しているかどうかのフラグ
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,9 @@ public class SaveData : MonoBehaviour
     public void SetJackpot(float jackpot) {  m_jackpot = jackpot; }
     public float GetJackpot() {  return m_jackpot; }
     public void AddJackpot(float jackpot) { m_jackpot += jackpot; }
+    public void SubtractJackpot(float jackpot) { m_jackpot -= jackpot; }
+    public void SetJackpot(bool jackpot) { m_isJackpot = jackpot; }
+    public bool IsJackpot() { return m_isJackpot; }
 
     public void SetItem(int item) { m_item = item; }
     public int GetItem() { return m_item; }

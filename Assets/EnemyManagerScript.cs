@@ -15,6 +15,10 @@ public class EnemyManagerScript : MonoBehaviour
     //敵のオブジェクトを格納する配列
     public GameObject[] enemyObjects = new GameObject[(int)EnemyType.Num];
 
+    //プッシャーマネージャースクリプトを格納する変数
+    private PusherManagerScript pusherManagerScript;
+
+    //敵の生成する位置を格納する配列
     private float[] enemySpawnPositionX = new float[9] { -20.0f, -15.0f, -10.0f, -5.0f, 0.0f, 5.0f, 10.0f, 15.0f, 20.0f };
 
     //セーブデータ
@@ -43,6 +47,9 @@ public class EnemyManagerScript : MonoBehaviour
     void Start()
     {
         saveDataScript = saveData.GetComponent<SaveData>();
+
+        GameObject eventStand = GameObject.Find("Stage");
+        pusherManagerScript = eventStand.transform.Find("Pusher").GetComponent<PusherManagerScript>();
     }
 
     //敵を消すかどうか？
@@ -67,6 +74,7 @@ public class EnemyManagerScript : MonoBehaviour
     public void ResetEnemySpawnCoinCount()
     {
         enemySpawnCoinCount = 0;
+        Debug.Log("敵を生成する用のコインのカウントをリセットしました。");
     }
 
     //敵を非アクティブ状態にする処理
@@ -79,6 +87,12 @@ public class EnemyManagerScript : MonoBehaviour
     public bool IsEnemyActive()
     {
         return isEnemyActive;
+    }
+
+    //敵のイベントが終わった時の処理
+    public void EnemyEventFinish()
+    {
+        pusherManagerScript.Close();
     }
 
     //敵を生成する処理
@@ -99,9 +113,30 @@ public class EnemyManagerScript : MonoBehaviour
     {
         if (!isEnemyActive)
         {
-            if (enemySpawnCoinCount >= enemySpawnCoinNum)
+            if (pusherManagerScript.GetEventStandState() != PusherManagerScript.EventStandState.Close)
             {
-                EnemySpawn();
+                if (enemySpawnCoinCount >= enemySpawnCoinNum)
+                {
+                    if (pusherManagerScript.IsOpenFinish())
+                    {
+                        EnemySpawn();
+                    }
+                    else if (!pusherManagerScript.IsOpen())
+                    {
+                        pusherManagerScript.Open();
+                    }
+                }
+            }
+            else
+            {
+                if(pusherManagerScript.IsCloseFinish())
+                {
+                    ResetEnemySpawnCoinCount();
+                }
+                else if (!pusherManagerScript.IsClose())
+                {
+                    pusherManagerScript.Close();
+                }
             }
         }
         else

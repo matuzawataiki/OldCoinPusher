@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 3985495039041177044}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -1.44}
-  m_LocalScale: {x: 2, y: 6, z: 2}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5383486048099815617}
@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 5383486048099815617}
   - component: {fileID: 3381268379804258832}
   - component: {fileID: 3607572310729315731}
+  - component: {fileID: -1800445640105421386}
   m_Layer: 0
   m_Name: MetalRod
   m_TagString: Untagged
@@ -190,6 +191,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &-1800445640105421386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329611835651945123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d4af6f41bf05a4a984f417f7591025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6196227699107025539
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,8 +231,8 @@ Transform:
   m_GameObject: {fileID: 6196227699107025539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 5, z: -1.44}
-  m_LocalScale: {x: 2, y: 6, z: 2}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5383486048099815617}
@@ -323,7 +336,7 @@ Transform:
   m_GameObject: {fileID: 9140686026731784579}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -1.44}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

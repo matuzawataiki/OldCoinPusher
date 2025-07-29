@@ -123,7 +123,7 @@ public class OgreScript : MonoBehaviour
                 Instantiate(OgreDropItem, dropItemPosition, OgreDropItem.transform.rotation);
 
                 enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
-                enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
+                enemyManagerScript.EnemyEventFinish();//敵のイベントが終わったことを通知する
             }
         }
     }
@@ -140,8 +140,8 @@ public class OgreScript : MonoBehaviour
             Destroy(gameObject);
 
             enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
-            enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
             enemyManagerScript.ResetEnemyLifeTimeLimit();//敵の生存時間を超えたかどうかを管理するフラグをリセットする
+            enemyManagerScript.EnemyEventFinish();//敵のイベントが終わったことを通知する
         }
 
         Move();//鬼の移動処理
