@@ -12,7 +12,6 @@ public class BucketScript : MonoBehaviour
     private float EventTimeLimit = 20.0f;
     private bool m_moveState = true; //trueなら右に移動、falseなら左に移動
     [SerializeField]GameObject CobanPrefab; // Prefab for the coban object
-    [SerializeField] GameObject EventManager;
     EventManagerScript eventManagerScript; // EventManagerのスクリプトを格納する変数
     //桶の移動方向の状態を保持する変数
     OkeMoveDirectionState moveDirectionState = OkeMoveDirectionState.Left;
@@ -25,7 +24,7 @@ public class BucketScript : MonoBehaviour
     {
         EventCoin = 0;
         transform.position = new Vector3(0.0f, 9.0f, 11.0f);
-        //eventManagerScript= EventManager.GetComponent<EventManagerScript>(); // EventManagerのスクリプトを取得
+        eventManagerScript = GameObject.Find("EventManager").transform.GetComponent<EventManagerScript>(); // EventManagerのスクリプトを取得
     }
 
     // Update is called once per frame
@@ -35,7 +34,7 @@ public class BucketScript : MonoBehaviour
         if (EventTimeLimit <= 0.0f)
         {
             SpawnCoban(EventCoin);
-            //eventManagerScript.IsOkeEncounter = false; //イベント終了時にフラグをリセット
+            eventManagerScript.IsOkeEncounter = false; //イベント終了時にフラグをリセット
             Destroy(gameObject);
         }
         else

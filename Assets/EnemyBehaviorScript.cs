@@ -71,6 +71,15 @@ public class EnemyBehaviorScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
+            if (transform.gameObject.name == "coin(Clone)")
+            {
+                GameObject saveDataObject = GameObject.FindGameObjectWithTag("SaveData");
+                SaveData saveDataScript = saveDataObject.GetComponent<SaveData>();
+                if (!saveDataScript.IsJackpot())
+                {
+                    saveDataScript.AddJackpot(1);
+                }
+            }
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "PlayerGround")

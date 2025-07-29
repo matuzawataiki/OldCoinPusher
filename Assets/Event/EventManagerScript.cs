@@ -14,11 +14,9 @@ enum EventType
 //イベント出現のマネージャースクリプト。
 public class EventManagerScript : MonoBehaviour
 {
-    const int EnemyEncounterCoin = 15; //敵が出現するのに必要なコイン数
     const int SkellEncounterCoin = 40; //スケルトンが出現するのに必要なコイン数
     const int OkeEncounterCoin = 60; //上段に桶が出現するのに必要なコイン数
     const int JackPotActiveteCoban = 5; //ジャックポットが出現するのに必要な小判束数
-    public bool IsEnemyEncounter = false; //敵出現イベントがアクティブどうか
     public bool IsSkellEncounter = false; //スケルトン出現イベントがアクティブどうか
     public bool IsOkeEncounter = false; //上段に桶出現イベントがアクティブどうか
     public bool IsJackPotActive = false; //ジャックポットイベントがアクティブどうか
@@ -50,16 +48,14 @@ public class EventManagerScript : MonoBehaviour
             if (cobanCount % JackPotActiveteCoban == 0 && IsJackPotActive == false)
             {
                 GameObject gameObject = Instantiate(NowEvent[(int)EventType.JackPotActive], transform.position, Quaternion.identity);
+                JackPotScript jackPotScript = gameObject.transform.GetComponent<JackPotScript>();
+                jackPotScript.SetSaveData(SaveDataScript);
+                SaveDataScript.SetJackpot(true);
                 IsJackPotActive = true; //ジャックポットイベントがアクティブになる
             }
         }
         if (coinCount != 0)
         {
-            if (coinCount % EnemyEncounterCoin == 0 && IsEnemyEncounter == false)
-            {
-                GameObject gameObject = Instantiate(NowEvent[(int)EventType.EnemyEncounter], transform.position, Quaternion.identity);
-                IsEnemyEncounter = true; //敵出現イベントがアクティブになる
-            }
             if (coinCount % SkellEncounterCoin == 0 && IsSkellEncounter == false)
             {
                 GameObject gameObject = Instantiate(NowEvent[(int)EventType.SkellEncounter], transform.position, Quaternion.identity);
@@ -68,19 +64,19 @@ public class EventManagerScript : MonoBehaviour
             if (coinCount % OkeEncounterCoin == 0 && IsOkeEncounter == false)
             {
                 GameObject gameObject = Instantiate(NowEvent[(int)EventType.OkeEncounter], transform.position, Quaternion.identity);
-                //IsOkeEncounter = true; //上段に桶出現イベントがアクティブになる。BuketScriptからfalseに戻せないため一旦コメントアウト。
+                IsOkeEncounter = true;
             }
         }
     }
 
     private void OpenOrCloseUpperRow()
     {
-        if ((IsEnemyEncounter == false && IsSkellEncounter == false && IsOkeEncounter == false)&&IsOpen==true)
+        if ((IsSkellEncounter == false && IsOkeEncounter == false && IsJackPotActive == false) && IsOpen == true)
         {
             StageScript.Close();
             IsOpen = false; //空いてない
         }
-        else if ((IsEnemyEncounter == true || IsSkellEncounter == true || IsOkeEncounter == true)&&IsOpen==false)
+        else if ((IsSkellEncounter == true || IsOkeEncounter == true || IsJackPotActive == true) && IsOpen == false)
         {
             StageScript.Open();
             IsOpen = true; //空いてる

@@ -13,20 +13,20 @@ public class SaveData : MonoBehaviour
     [SerializeField] private float m_point = 0;
     [SerializeField] private float m_jackpot = 0;
     [SerializeField] private int m_item = 0;
-    //ï¿½Zï¿½[ï¿½uï¿½İ’ï¿½
+    [SerializeField] private int m_coban = 0; //¬”»‚Ì”‚ğŠi”[‚·‚é•Ï”B
+    private bool m_isJackpot = false; //ƒWƒƒƒbƒNƒ|ƒbƒg‚ª”­¶‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
     QuickSaveSettings m_saveSettings;
 
-    [SerializeField] private int m_coban = 0; //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½B
     // Start is called before the first frame update
     void Start()
     {
-        // QuickSaveSettingsï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬
+        // QuickSaveSettingsE½ÌƒCE½E½E½XE½^E½E½E½XE½E½E½E¬
         m_saveSettings = new QuickSaveSettings();
-        // ï¿½Ãï¿½ï¿½ï¿½ï¿½Ì•ï¿½ï¿½@ 
+        // E½Ãï¿½E½E½E½Ì•ï¿½E½@ 
         m_saveSettings.SecurityMode = SecurityMode.Aes;
-        // Aesï¿½ÌˆÃï¿½ï¿½ï¿½ï¿½Lï¿½[
+        // AesE½ÌˆÃï¿½E½E½E½LE½[
         m_saveSettings.Password = "Password";
-        // ï¿½ï¿½ï¿½kï¿½Ì•ï¿½ï¿½@
+        // E½E½E½kE½Ì•ï¿½E½@
         m_saveSettings.CompressionMode = CompressionMode.Gzip;
         LoadUserData();
     }
@@ -38,39 +38,39 @@ public class SaveData : MonoBehaviour
     }
 
     /// <summary>
-    /// ï¿½fï¿½[ï¿½^ï¿½Zï¿½[ï¿½u
+    /// E½fE½[E½^E½ZE½[E½u
     /// </summary>
     public void SaveUserData()
     {
-        Debug.Log("ï¿½Zï¿½[ï¿½uï¿½fï¿½[ï¿½^ï¿½Û‘ï¿½ï¿½ï¿½:" + Application.persistentDataPath);
+        Debug.Log("E½ZE½[E½uE½fE½[E½^E½Û‘ï¿½E½E½:" + Application.persistentDataPath);
 
-        // QuickSaveWriterï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬
+        // QuickSaveWriterE½ÌƒCE½E½E½XE½^E½E½E½XE½E½E½E¬
         QuickSaveWriter writer = QuickSaveWriter.Create("SaveData", m_saveSettings);
 
-        // ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // E½fE½[E½^E½E½E½E½E½E½E½E½E½E½
         writer.Write("CoinNum", m_coin);
         writer.Write("JackpotNum", m_jackpot);
         writer.Write("ItemNum", m_item);
         writer.Write("ItemPoint", m_point);
 
-        // ï¿½ÏXï¿½ğ”½‰f
+        // E½ÏXE½ğ”½‰f
         writer.Commit();
     }
     /// <summary>
-    /// ï¿½Zï¿½[ï¿½uï¿½fï¿½[ï¿½^ï¿½Ç‚İï¿½ï¿½ï¿½
+    /// E½ZE½[E½uE½fE½[E½^E½Ç‚İï¿½E½E½
     /// </summary>
     public void LoadUserData()
     {
-        //ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î–ï¿½ï¿½ï¿½
+        //E½tE½@E½CE½E½E½E½E½E½E½E½E½E½Î–ï¿½E½E½
         if (FileAccess.Exists("SaveData") == false)
         {
             return;
         }
 
-        // QuickSaveReaderï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ì¬
+        // QuickSaveReaderE½ÌƒCE½E½E½XE½^E½E½E½XE½E½E½E¬
         QuickSaveReader reader = QuickSaveReader.Create("SaveData", m_saveSettings);
 
-        // ï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+        // E½fE½[E½^E½E½Ç‚İï¿½E½E½
         m_coin = reader.Read<int>("CoinNum");
         m_jackpot = reader.Read<int>("JackpotNum");
         m_item = reader.Read<int>("ItemNum");
@@ -89,14 +89,17 @@ public class SaveData : MonoBehaviour
     public void SetJackpot(float jackpot) {  m_jackpot = jackpot; }
     public float GetJackpot() {  return m_jackpot; }
     public void AddJackpot(float jackpot) { m_jackpot += jackpot; }
+    public void SubtractJackpot(float jackpot) { m_jackpot -= jackpot; }
+    public void SetJackpot(bool jackpot) { m_isJackpot = jackpot; }
+    public bool IsJackpot() { return m_isJackpot; }
 
     public void SetItem(int item) { m_item = item; }
     public int GetItem() { return m_item; }
     public void AddItem(int item) {m_item += item; }
 
-    public void SetCoban(int coban) { m_coban = coban; } //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½İ’è‚·ï¿½éƒï¿½\ï¿½bï¿½h
-    public int GetCoban() { return m_coban; } //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
-    public void AddCoban(int coban) { m_coban += coban; } //ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
+    public void SetCoban(int coban) { m_coban = coban; } //E½E½E½E½E½Ìï¿½E½E½İ’è‚·E½éƒE¿½\E½bE½h
+    public int GetCoban() { return m_coban; } //E½E½E½E½E½Ìï¿½E½E½E½æ“¾E½E½E½éƒE¿½\E½bE½h
+    public void AddCoban(int coban) { m_coban += coban; } //E½E½E½E½E½Ìï¿½E½E½Ç‰ï¿½E½E½E½éƒE¿½\E½bE½h
 
 
 

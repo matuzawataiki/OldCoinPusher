@@ -200,7 +200,7 @@ public class SnowWomanScript : MonoBehaviour
                 }
 
                 enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
-                enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
+                enemyManagerScript.EnemyEventFinish();//敵のイベントが終わったことを通知する
             }
         }
     }
@@ -216,8 +216,8 @@ public class SnowWomanScript : MonoBehaviour
             Destroy(gameObject);
 
             enemyManagerScript.EnemyInactive();//敵用のマネージャーのスクリプトに敵が非アクティブになったことを通知する
-            enemyManagerScript.ResetEnemySpawnCoinCount();//敵の生成用のコインカウントをリセットする
             enemyManagerScript.ResetEnemyLifeTimeLimit();//敵の生存時間を超えたかどうかを管理するフラグをリセットする
+            enemyManagerScript.EnemyEventFinish();//敵のイベントが終わったことを通知する
         }
 
         Move();//雪女の移動処理

@@ -15,8 +15,19 @@ public class PusherManagerScript : MonoBehaviour
     GameObject[] m_eventStands = new GameObject[5];
     EventStandScript[] m_eventStandScripts = new EventStandScript[5];
 
+    public enum EventStandState
+    {
+        Open,
+        Close,
+        None
+    }
+
+    EventStandState m_eventStandState = EventStandState.None;
+
     bool m_isOpen = false;
+    bool m_isOpenFinish = false;
     bool m_isClose = false;
+    bool m_isCloseFinish = false;
 
     int m_countTime = 0;
     int m_count = 0;
@@ -65,17 +76,31 @@ public class PusherManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(m_isCloseFinish)
+        {
+            m_eventStandState = EventStandState.None;
+        }
+
         if (m_isOpen)
         {
             OpenEventStage();
+        }
+        else
+        {
+            m_isOpenFinish = false;
         }
 
         if (m_isClose)
         {
             CloseEventStage();
         }
+        else
+        {
+            m_isCloseFinish = false;
+        }
 
-        if (Input.GetKeyUp(KeyCode.K)) {
+        if (Input.GetKeyUp(KeyCode.K))
+        {
             Open();
         }
         if (Input.GetKeyUp(KeyCode.J)) { 
@@ -88,14 +113,41 @@ public class PusherManagerScript : MonoBehaviour
         m_isOpen = true;
         m_count = 0;
         m_countTime = 0;
+        m_eventStandState = EventStandState.Open;
     }
+
+    public bool IsOpen()
+    {
+        return m_isOpen;
+    }
+
+    public bool IsOpenFinish()
+    {
+        return m_isOpenFinish;
+    }
+
     public void Close()
     {
         m_count = 0;
         m_countTime = 0;
         m_isClose = true;
+        m_eventStandState = EventStandState.Close;
     }
 
+    public bool IsClose()
+    {
+        return m_isClose;
+    }
+
+    public bool IsCloseFinish()
+    {
+        return m_isCloseFinish;
+    }
+
+    public EventStandState GetEventStandState()
+    {
+        return m_eventStandState;
+    }
 
     private void OpenEventStage()
     {
@@ -111,6 +163,7 @@ public class PusherManagerScript : MonoBehaviour
         if(m_count >= m_eventStands.Length)
         {
             m_isOpen = false;
+            m_isOpenFinish = true;
         }
     }
     private void CloseEventStage()
@@ -127,6 +180,7 @@ public class PusherManagerScript : MonoBehaviour
         if (m_count >= m_eventStands.Length)
         {
             m_isClose = false;
+            m_isCloseFinish = true;
         }
     }
 }
