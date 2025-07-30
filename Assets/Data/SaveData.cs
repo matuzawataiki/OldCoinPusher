@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 using UnityEngine;
 using CI.QuickSave;
 using CI.QuickSave.Core.Storage;
-using static UnityEditor.Progress;
 
 
 public class SaveData : MonoBehaviour

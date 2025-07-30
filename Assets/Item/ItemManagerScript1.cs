@@ -18,7 +18,7 @@ public class ItemManagerScript1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.frameCount % 100 == 0)
+        if (Time.frameCount % 300 == 0)
         {
             float x = Random.Range(24, -24);
             GameObject coinTowerObj = Instantiate(tawaraObject, new Vector3(x, 25, 1), Quaternion.identity);
