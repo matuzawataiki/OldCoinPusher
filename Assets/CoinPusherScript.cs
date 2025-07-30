@@ -95,9 +95,9 @@ public class CoinPusherScript : MonoBehaviour
     {
         //コインの発射位置をプレイヤーの前方に設定
         Vector3 playerPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-
+        Quaternion quaternion = Quaternion.Euler(0.0f, 0.0f, 90.0f);
         //コインオブジェクトを生成し、プレイヤーの前方に発射する
-        GameObject coin = Instantiate(coinObject, playerPos, Quaternion.identity);
+        GameObject coin = Instantiate(coinObject, playerPos, quaternion);
 
         //コインのRigidbodyコンポーネントの取得
         Rigidbody coinRigidbody = coin.GetComponent<Rigidbody>();
