@@ -65,9 +65,6 @@ public class SnowWomanScript : MonoBehaviour
     //á—‚Ì‘Ì—Í
     public int snowWomanHP = 100;
 
-    //á—‚É‘Î‚·‚éƒ_ƒ[ƒW
-    public int snowWomanDamage = 10;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -182,7 +179,7 @@ public class SnowWomanScript : MonoBehaviour
     {
         if(other.gameObject.name=="coin(Clone)")
         {
-            snowWomanHP -= snowWomanDamage;
+            snowWomanHP -= enemyManagerScript.GetPlayerAtackPower();
 
             if (snowWomanHP <= 0)
             {

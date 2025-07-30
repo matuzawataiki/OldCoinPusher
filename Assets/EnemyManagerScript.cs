@@ -43,6 +43,9 @@ public class EnemyManagerScript : MonoBehaviour
     //敵の生存時間を超えたかどうかを管理するフラグ
     bool isEnemyLifeTimeLimit = false;
 
+    //プレイヤーの攻撃力
+    int playerAtackPower = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,7 +77,6 @@ public class EnemyManagerScript : MonoBehaviour
     public void ResetEnemySpawnCoinCount()
     {
         enemySpawnCoinCount = 0;
-        Debug.Log("敵を生成する用のコインのカウントをリセットしました。");
     }
 
     //敵を非アクティブ状態にする処理
@@ -87,6 +89,24 @@ public class EnemyManagerScript : MonoBehaviour
     public bool IsEnemyActive()
     {
         return isEnemyActive;
+    }
+
+    //プレイヤーの攻撃力をアップグレードする処理
+    public void UpgradePlayerAtackPower(int upgrade)
+    {
+        playerAtackPower += upgrade;
+    }
+
+    //プレイヤーの攻撃力をダウングレードする処理
+    public void DowngradePlayerAtackPower(int downgrade)
+    {
+        playerAtackPower -= downgrade;
+    }
+
+    //敵が食らうダメージの取得
+    public int GetPlayerAtackPower()
+    {
+        return playerAtackPower;
     }
 
     //敵のイベントが終わった時の処理
