@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1991409763881159394}
   m_Layer: 0
   m_Name: SnowWoman
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,5 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SnowWomanDropItem: {fileID: 6009169655886577235, guid: 04136bc50c801b44e9bec5aa19772a09, type: 3}
+  dropItemNum: 5
   snowWomanHP: 100
   snowWomanDamage: 10

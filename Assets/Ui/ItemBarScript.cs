@@ -5,36 +5,36 @@ using UnityEngine.UI;
 
 public class ItemBarScript : MonoBehaviour
 {
-    [SerializeField] float m_itemPoint = 0.0f;
-    [SerializeField] const float MaxItemPint = 10.0f;
-    [SerializeField] GameObject m_saveData;
+    [SerializeField] GameObject SaveDataObject;
+    SaveData saveDataScript;
+    [SerializeField] const float MaxItemPint = 100.0f;
+    [SerializeField] GameObject ItemObject;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        saveDataScript = SaveDataObject.GetComponent<SaveData>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(m_itemPoint >= MaxItemPint)
+        float itemPoint = saveDataScript.GetPoint();
+        if (itemPoint >= MaxItemPint)
         {
             AddItem();
-            m_itemPoint -= MaxItemPint;
+            itemPoint -= MaxItemPint;
         }
 
-        GetComponent<Slider>().value = m_itemPoint;
-    }
-
-    public void AddItemPoint(float itemPoint)
-    {
-        m_itemPoint += itemPoint;
+        GetComponent<Slider>().value = itemPoint;
+        saveDataScript.SetPoint(itemPoint);
     }
 
     private void AddItem()
     {
-        SaveData saveData = m_saveData.AddComponent<SaveData>();
-        saveData.AddItem(1);
+        GameObject gameObject = GameObject.Instantiate(ItemObject);
+        float x = Random.Range(24, -24);
+        gameObject.transform.SetPositionAndRotation(new Vector3(x, 25, 1),Quaternion.identity);
+            
     }
 }

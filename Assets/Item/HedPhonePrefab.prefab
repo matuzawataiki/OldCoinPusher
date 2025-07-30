@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8695302002488907444}
   - component: {fileID: 1127153975259542326}
   - component: {fileID: -1976202535306298848}
+  - component: {fileID: 7536952970360645768}
   m_Layer: 0
   m_Name: HedPhonePrefab
   m_TagString: Untagged
@@ -29,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8257125110518122177}
   m_Father: {fileID: 0}
@@ -42,7 +43,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6912176858131467362}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1272bf66dfee17f41aed3bc56b99e892, type: 3}
   m_Name: 
@@ -69,7 +70,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b865b9ca6d58dcd4aa73c5c3f9f0b338, type: 3}
+  m_Mesh: {fileID: -3077013127752173598, guid: 5954506a69a802c4db066dec8710e7e2, type: 3}
 --- !u!54 &-1976202535306298848
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -78,7 +79,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6912176858131467362}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -97,6 +98,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &7536952970360645768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6912176858131467362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c7c71c675c8ff4e9a401db99711597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  Point: 15
 --- !u!1001 &8439054071445938474
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,15 +122,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5954506a69a802c4db066dec8710e7e2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.489317
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5954506a69a802c4db066dec8710e7e2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000052874202
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5954506a69a802c4db066dec8710e7e2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6734152
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5954506a69a802c4db066dec8710e7e2, type: 3}
       propertyPath: m_LocalRotation.w
