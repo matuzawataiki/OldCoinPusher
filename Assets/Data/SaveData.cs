@@ -9,6 +9,7 @@ using static UnityEditor.Progress;
 
 public class SaveData : MonoBehaviour
 {
+    [SerializeField] GameObject[] GameObjects = new GameObject[4];
     [SerializeField] private int m_coin = 0;
     [SerializeField] private float m_point = 0;
     [SerializeField] private float m_jackpot = 0;
@@ -34,7 +35,14 @@ public class SaveData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Y))
+        {
+            m_coin += 1000;
+        }
+        if (Input.GetKeyUp(KeyCode.U))
+        {
+            m_item += 10;
+        }
     }
 
     /// <summary>
@@ -80,7 +88,16 @@ public class SaveData : MonoBehaviour
 
     public void SetCoin(int coin){ m_coin = coin; }
     public int GetCoin() { return m_coin; }
-    public void AddCoin(int coin) {  m_coin += coin; }
+    public void AddCoin(int coin)
+    { 
+        m_coin += coin;
+        if (coin >= 20)
+        {
+            float x = Random.Range(24, -24);
+            int num = Random.Range(0, 5);
+            GameObject coinTowerObj = Instantiate(GameObjects[num], new Vector3(x, 25, 1), Quaternion.identity);
+        }
+    }
 
     public void SetPoint(float point) { m_point = point; }
     public float GetPoint() { return m_point; }

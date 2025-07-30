@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 795663572364147635}
   - component: {fileID: 112042798143821357}
   - component: {fileID: 3337310631559794219}
+  - component: {fileID: -7764431583811734317}
   m_Layer: 0
   m_Name: BagPrefab
   m_TagString: Untagged
@@ -29,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5053289195208300573}
   m_Father: {fileID: 0}
@@ -42,7 +43,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269254986433692562}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1272bf66dfee17f41aed3bc56b99e892, type: 3}
   m_Name: 
@@ -69,7 +70,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b865b9ca6d58dcd4aa73c5c3f9f0b338, type: 3}
+  m_Mesh: {fileID: -2587485212497171513, guid: ea81727cdfbd38d4b82a8916d5896caa, type: 3}
 --- !u!54 &3337310631559794219
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -78,7 +79,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269254986433692562}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -97,6 +98,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &-7764431583811734317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269254986433692562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c7c71c675c8ff4e9a401db99711597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  Point: 10
 --- !u!1001 &4731694150410878966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,15 +122,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ea81727cdfbd38d4b82a8916d5896caa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.96263885
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ea81727cdfbd38d4b82a8916d5896caa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.006777704
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ea81727cdfbd38d4b82a8916d5896caa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.3611183
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ea81727cdfbd38d4b82a8916d5896caa, type: 3}
       propertyPath: m_LocalRotation.w

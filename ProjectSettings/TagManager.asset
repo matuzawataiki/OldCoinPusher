@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - SaveData
   - BuketGround
+  - Enemy
   layers:
   - Default
   - TransparentFX

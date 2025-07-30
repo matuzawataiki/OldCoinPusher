@@ -87,9 +87,9 @@ public class EnemyBehaviorScript : MonoBehaviour
             GameObject saveDataObject = GameObject.FindGameObjectWithTag("SaveData");
             GameObject enemyManager = GameObject.Find("EnemyManager");
             SaveData saveDataScript = saveDataObject.GetComponent<SaveData>();
-            EnemyManagerScript enemyManagerScript = enemyManager.GetComponent<EnemyManagerScript>();
+            //EnemyManagerScript enemyManagerScript = enemyManager.GetComponent<EnemyManagerScript>();
             saveDataScript.AddCoin(1);
-            enemyManagerScript.AddEnemySpawnCoinCount(1);
+            //enemyManagerScript.AddEnemySpawnCoinCount(1);
             Destroy(gameObject);
         }
     }

@@ -29,11 +29,10 @@ public class BuyButton : MonoBehaviour
         {
             return;
         }
-        if (saveData.GetItem() < value)
+        if (saveData.GetCoin() < value)
         {
             return;
         }
-
         menuData.AddStore(upgradeTextScript.Number - 1, 1);
         saveData.AddCoin(-value);
     }
