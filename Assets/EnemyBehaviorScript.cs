@@ -16,6 +16,9 @@ public class EnemyBehaviorScript : MonoBehaviour
     //コインの凍結状態を管理するフラグ
     bool isCoinFreeze = false;
 
+    //ジャックポットポイント
+    int jackpotPoint = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +70,18 @@ public class EnemyBehaviorScript : MonoBehaviour
         }
     }
 
+    //ジャックポットの転換をアップグレードする処理
+    public void UpgradeJackpotDiversion(int upgrade)
+    {
+        jackpotPoint += upgrade;
+    }
+
+    //ジャックポットの転換をダウングレードする処理
+    public void DowngradeJackpotDiversion(int downgrade)
+    {
+        jackpotPoint -= downgrade;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
@@ -75,9 +90,13 @@ public class EnemyBehaviorScript : MonoBehaviour
             {
                 GameObject saveDataObject = GameObject.FindGameObjectWithTag("SaveData");
                 SaveData saveDataScript = saveDataObject.GetComponent<SaveData>();
+                saveDataScript.AddGroundDownCoin(1);
                 if (!saveDataScript.IsJackpot())
                 {
-                    saveDataScript.AddJackpot(1);
+                    if (saveDataScript.GetGroundDownCoin() != 0 && saveDataScript.GetGroundDownCoin() % 5 == 0)
+                    {
+                        saveDataScript.AddJackpot(jackpotPoint);
+                    }
                 }
             }
             Destroy(gameObject);

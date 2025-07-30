@@ -14,6 +14,7 @@ public class SaveData : MonoBehaviour
     [SerializeField] private float m_jackpot = 0;
     [SerializeField] private int m_item = 0;
     [SerializeField] private int m_coban = 0; //小判の数を格納する変数。
+    [SerializeField] private int m_groundDownCoin = 0; //地面に落ちたコインの数を格納する変数
     private bool m_isJackpot = false; //ジャックポットが発生しているかどうかのフラグ
     QuickSaveSettings m_saveSettings;
 
@@ -100,6 +101,12 @@ public class SaveData : MonoBehaviour
     public void SetCoban(int coban) { m_coban = coban; } //・ｽ・ｽ・ｽ・ｽ・ｽﾌ撰ｿｽ・ｽ・ｽﾝ定す・ｽ驛・ｿｽ\・ｽb・ｽh
     public int GetCoban() { return m_coban; } //・ｽ・ｽ・ｽ・ｽ・ｽﾌ撰ｿｽ・ｽ・ｽ・ｽ謫ｾ・ｽ・ｽ・ｽ驛・ｿｽ\・ｽb・ｽh
     public void AddCoban(int coban) { m_coban += coban; } //・ｽ・ｽ・ｽ・ｽ・ｽﾌ撰ｿｽ・ｽ・ｽﾇ会ｿｽ・ｽ・ｽ・ｽ驛・ｿｽ\・ｽb・ｽh
+
+    public void SetGroundDownCoin(int coin) { m_groundDownCoin = coin; }
+
+    public int GetGroundDownCoin() { return m_groundDownCoin; }
+
+    public void AddGroundDownCoin(int coin) { m_groundDownCoin += coin; }
 
 
 

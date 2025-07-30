@@ -34,7 +34,19 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+    }
+
+    //プレイヤーの移動速度をアップグレードする処理
+    public void UpgradePlayerMoveSpeed(float upgrade)
+    {
+        moveSpeed += upgrade;
+    }
+
+    //プレイヤーの移動速度をダウングレードする処理
+    public void DowngradePlayerMoveSpeed(float downgrade)
+    {
+        moveSpeed -= downgrade;
     }
 
     //プレイヤーの移動処理

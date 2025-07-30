@@ -41,9 +41,6 @@ public class OgreScript : MonoBehaviour
     //‹S‚Ì‘Ì—Í
     public int ogreHP = 100;
 
-    //‹S‚É‘Î‚·‚éƒ_ƒ[ƒW
-    public int ogreDamage = 10;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -107,7 +104,7 @@ public class OgreScript : MonoBehaviour
     {
         if (other.gameObject.name == "coin(Clone)")
         {
-            ogreHP -= ogreDamage;
+            ogreHP -= enemyManagerScript.GetPlayerAtackPower();
 
             if (ogreHP <= 0)
             {
