@@ -26,7 +26,19 @@ public class CoinPusherScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+    }
+
+    //コインを発射できる間隔をアップグレードする処理
+    public void UpgradeShotCoinInterval(float upgrade)
+    {
+        shotCoinInterval -= upgrade;
+    }
+
+    //コインを発射できる間隔をダウングレードする処理
+    public void DowngradeShotCoinInterval(float downgrade)
+    {
+        shotCoinInterval += downgrade;
     }
 
     //コインを発射する処理
